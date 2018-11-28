@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" href="Home.css">
+</head>
+<body>
+
+	
+	<div class="loginBar">
+		<span>Login to post reviews <input type="button" value="login" onclick="submitLoginCredentials()"></span> 
+	</div>
+	
+	<div class="titleBar">
+		<h1 class="centered">Collegiate Movie Review</h1>
+		<h4 class="centered">Movie reviews for college students, by college students</h4>
+	</div>
+	
+	<div class="registrationBar">
+		<form onsubmit="submitRegistrationCredentials(); return false">
+		<h3>Register to post reviews</h3> 
+		<p>Username: <input type="text" class="username" id="username"></p>
+		<p>Password: <input type="text" class="password" id="password"></p>
+		<input type="submit" value="submit">
+	</form>
+	</div>
+	
+	
+
+</body>
+
+<script>
+	function submitRegistrationCredentials(){
+		//alert("called");
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		//alert(username);
+		//alert(password);
+	    var ajax = new XMLHttpRequest();
+	    ajax.open("POST", "registration.php", true);
+	    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    ajax.send("username=" + username + "&password=" + password);
+	    ajax.onreadystatechange = function() {
+	        if (ajax.readyState == 4 && ajax.status == 200) {
+				console.log(ajax.responseText);
+	        	//alert(ajax.responseText);
+	        }
+	    };
+	}
+	
+	function submitLoginCredentials(){
+		alert("called");
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+	    var ajax = new XMLHttpRequest();
+	    ajax.open("POST", "login.php", true);
+	    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    ajax.send("username=" + username + "&password=" + password);
+	    ajax.onreadystatechange = function() {
+	        if (ajax.readyState == 4 && ajax.status == 200) {
+				if (ajax.responseText.length > 0){
+					alert(ajax.responeText);
+				}
+	        }
+	    };
+	}
+</script>
+
+</html>
