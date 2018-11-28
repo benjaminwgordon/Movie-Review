@@ -7,10 +7,7 @@
 </head>
 <body>
 
-	
-	<div class="loginBar">
-		<span>Login to post reviews <input type="button" value="login" onclick="submitLoginCredentials()"></span> 
-	</div>
+<div id="main">
 	
 	<div class="titleBar">
 		<h1 class="centered">Collegiate Movie Review</h1>
@@ -18,14 +15,16 @@
 	</div>
 	
 	<div class="registrationBar">
-		<form onsubmit="submitRegistrationCredentials(); return false">
-		<h3>Register to post reviews</h3> 
+		<h3>Register/Login to post reviews</h3> 
 		<p>Username: <input type="text" class="username" id="username"></p>
 		<p>Password: <input type="text" class="password" id="password"></p>
-		<input type="submit" value="submit">
-	</form>
+		<div class="buttons">
+			<input type="button" value="register" onclick="submitRegistrationCredentials(); return false">
+			<input type="button" value="login" onclick="submitLoginCredentials(); return false">
+		</div>
+		<p id="messages"></p>
 	</div>
-	
+</div>
 	
 
 </body>
@@ -38,9 +37,9 @@
 		//alert(username);
 		//alert(password);
 	    var ajax = new XMLHttpRequest();
-	    ajax.open("POST", "registration.php", true);
+	    ajax.open("POST", "controller.php", true);
 	    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    ajax.send("username=" + username + "&password=" + password);
+	    ajax.send("username=" + username + "&password=" + password + "&method=registration");
 	    ajax.onreadystatechange = function() {
 	        if (ajax.readyState == 4 && ajax.status == 200) {
 				console.log(ajax.responseText);
@@ -50,18 +49,20 @@
 	}
 	
 	function submitLoginCredentials(){
-		alert("called");
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
 	    var ajax = new XMLHttpRequest();
-	    ajax.open("POST", "login.php", true);
+	    ajax.open("POST", "controller.php", true);
 	    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	    ajax.send("username=" + username + "&password=" + password);
+	    ajax.send("username=" + username + "&password=" + password + "&method=login");
 	    ajax.onreadystatechange = function() {
-	        if (ajax.readyState == 4 && ajax.status == 200) {
-				if (ajax.responseText.length > 0){
-					alert(ajax.responeText);
-				}
+	        if (ajax.readyState == 4 && ajax.status == 200){
+	        	if (JSON.parse(ajax.responseText) == true){
+					window.location = "landing.php";
+	        	}
+	        	else{
+	        		document.getElementById("messages").innerHTML = "username and password do not match";
+	        	}
 	        }
 	    };
 	}
