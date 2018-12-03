@@ -1,0 +1,25 @@
+Create database movieReviews;
+use movieReviews;
+
+create table userData(
+	userID int(11) NOT NULL AUTO_INCREMENT,
+	username varchar(32) NOT NULL,
+	password varchar(32) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+create table movieData(
+	movieID int(11) NOT NULL AUTO_INCREMENT,
+	movieTitle varchar(64) NOT NULL,
+	PRIMARY KEY(movieID)
+);
+
+create table reviewData(
+	reviewID int(11) NOT NULL AUTO_INCREMENT,
+	movieID int(11) NOT NULL,
+	reviewText varchar(516) NOT NULL,
+	username varchar(32) NOT NULL,
+	date date NOT NULL,
+	time time NOT NULL,
+	primary key(reviewID)
+);
