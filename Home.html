@@ -42,8 +42,7 @@
 	    ajax.send("username=" + username + "&password=" + password + "&method=registration");
 	    ajax.onreadystatechange = function() {
 	        if (ajax.readyState == 4 && ajax.status == 200) {
-				console.log(ajax.responseText);
-	        	//alert(ajax.responseText);
+	        	document.getElementById("messages").innerHTML = ajax.responseText;
 	        }
 	    };
 	}

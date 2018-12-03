@@ -51,11 +51,16 @@ if ($method == "myReviews"){
         $movies = $databaseAdaptor->getMyReviews($_SESSION["user"]);
         echo "<h3>Welcome ".$_SESSION["user"]."</h3>";
 		echo "<h4>".$_SESSION["user"]."'s reviews:</h4>";
-        echo "<ul>";
-        for ($i = 0; i < count($movies); $i++){
-         echo "<li>.".$movies[$i]."</li>";
+        if(count($movies) > 0){
+            echo "<ul>";
+            for ($i = 0; i < count($movies); $i++){
+             echo "<li>.".$movies[$i]."</li>";
+            }
+            echo "</ul>";
         }
-        echo "</ul>";
+        else{
+            echo "You haven't reviewed any movies yet";
+        }
     }
     else{
         echo "<p>please login to view your reviews</p>";
