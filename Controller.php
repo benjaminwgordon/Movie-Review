@@ -20,10 +20,10 @@ if ($method == "login"){
     if (isset($_POST["username"]) && isset($_POST["password"])){
         if ($databaseAdaptor->checkUserCredentials($username, $password) == TRUE){
             $_SESSION["user"] = $username;
-            echo json_encode(true);
+            echo true;
         }
         else{
-            echo json_encode(false);
+            echo false;
         }
     }
 }
@@ -47,11 +47,18 @@ if ($method == "registration"){
 }
 
 if ($method == "myReviews"){
-    $username = $_SESSION["user"];
-    $movies = $databaseAdaptor->getMyReviews($username);
-    echo "<ul>";
-    for ($i = 0; i < count($movies); $i++){
-        echo 
+    if (isset($_SESSION["user"])){
+        $movies = $databaseAdaptor->getMyReviews($_SESSION["user"]);
+        echo "<h3>Welcome ".$_SESSION["user"]."</h3>";
+		echo "<h4>".$_SESSION["user"]."'s reviews:</h4>";
+        echo "<ul>";
+        for ($i = 0; i < count($movies); $i++){
+         echo "<li>.".$movies[$i]."</li>";
+        }
+        echo "</ul>";
+    }
+    else{
+        echo "<p>please login to view your reviews</p>";
     }
     
 }

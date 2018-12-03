@@ -57,7 +57,7 @@
 	    ajax.send("username=" + username + "&password=" + password + "&method=login");
 	    ajax.onreadystatechange = function() {
 	        if (ajax.readyState == 4 && ajax.status == 200){
-	        	if (JSON.parse(ajax.responseText) == true){
+	        	if (ajax.responseText == true){
 					window.location = "landing.php";
 	        	}
 	        	else{

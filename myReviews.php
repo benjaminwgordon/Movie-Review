@@ -9,14 +9,26 @@
 <?php session_start()?>
 
 <body>
-	
-	<h4><?php echo $_SESSION["user"] ?>'s reviews:</h4>
-	
 
+	<div id="myReviews"></div>
 	
-	<p>Welcome <?php echo $_SESSION["user"] ?></p>
+	
 	
 </body>
+<script>
+function getMyReviews(){
+		var username = <?php echo $_SESSION["user"] ?>;
+	    var ajax = new XMLHttpRequest();
+	    ajax.open("POST", "controller.php", true);
+	    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    ajax.send("username=" + username + "&password=" + password + "&method=myReviews");
+	    ajax.onreadystatechange = function() {
+	        if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById("myReviews").innerHTML = ajax.responseText;
+	        }
+	    };
+	}
+</script>
 </html>
 
 
