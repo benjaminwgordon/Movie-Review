@@ -35,11 +35,15 @@ class DatabaseAdaptor {
     }
     
     public function getMyReviews($username){
-        $stmt = $this->DB->prepare("select movieID from moviedata where username = ('" . $username ."')");
+        $stmt = $this->DB->prepare("SELECT movieData.movieTitle, reviewData.reviewText
+                                    FROM movieData
+                                    JOIN reviewData ON movieData.movieID = reviewData.movieID AND reviewData.username = '".$_SESSION["user"]."';");
         $stmt->execute();
         $arr = $stmt->fetchAll( PDO::FETCH_ASSOC );
-        echo json_encode($arr);
+        return json_encode($arr);
     }
+    
+    
     
     
 }

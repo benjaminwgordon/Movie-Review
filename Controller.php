@@ -48,18 +48,19 @@ if ($method == "registration"){
 
 if ($method == "myReviews"){
     if (isset($_SESSION["user"])){
-        $movies = $databaseAdaptor->getMyReviews($_SESSION["user"]);
         echo "<h3>Welcome ".$_SESSION["user"]."</h3>";
 		echo "<h4>".$_SESSION["user"]."'s reviews:</h4>";
-        if(count($movies) > 0){
-            echo "<ul>";
-            for ($i = 0; i < count($movies); $i++){
-             echo "<li>.".$movies[$i]."</li>";
+		$movies = json_decode($databaseAdaptor->getMyReviews($_SESSION["user"]), true);
+        if (count($movies) > 0){
+            for ($i = 0; $i < count($movies); $i++){
+                echo "<ul>";
+                echo "<li>".$movies[$i]["movieTitle"].": </li>";
+                echo "<li>".$movies[$i]["reviewText"]."</li>";
+                echo "</ul>";
             }
-            echo "</ul>";
         }
         else{
-            echo "You haven't reviewed any movies yet";
+            echo "you havent posted any reviews yet";
         }
     }
     else{
