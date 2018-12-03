@@ -46,5 +46,15 @@ if ($method == "registration"){
     }
 }
 
+if ($method == "myReviews"){
+    $username = $_SESSION["user"];
+    $movies = $databaseAdaptor->getMyReviews($username);
+    echo "<ul>";
+    for ($i = 0; i < count($movies); $i++){
+        echo 
+    }
+    
+}
+
 ?>
 

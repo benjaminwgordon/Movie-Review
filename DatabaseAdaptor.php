@@ -33,5 +33,14 @@ class DatabaseAdaptor {
         $arr = $stmt->fetchAll( PDO::FETCH_ASSOC );
         return $arr[0]["password"] == $password;
     }
+    
+    public function getMyReviews($username){
+        $stmt = $this->DB->prepare("select movieID from moviedata where username = ('" . $username ."')");
+        $stmt->execute();
+        $arr = $stmt->fetchAll( PDO::FETCH_ASSOC );
+        echo json_encode($arr);
+    }
+    
+    
 }
 
