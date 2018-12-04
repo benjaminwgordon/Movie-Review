@@ -43,6 +43,27 @@ class DatabaseAdaptor {
         return json_encode($arr);
     }
     
+    public function getMovieList(){
+        $titles = $this->DB->prepare("SELECT movieTitle FROM moviedata");
+        $titles->execute();
+        $arr = $titles->fetchAll( PDO::FETCH_ASSOC );
+        echo json_encode($arr);
+    }
+    
+    public function insertNewMovie($movieTitle){
+        $check = $this->DB->prepare("select movieTitle from moviedata where movietitle = ('" . $movieTitle . "')");
+        $check->execute();
+        $arr = $check->fetchAll( PDO:: FETCH_ASSOC );
+        if(count($arr) > 0){
+            $stmt = $this->DB->prepare("insert into moviedata (movieTitle) values ('" . $movieTitle . "')");
+            $stmt->execute();
+        }
+    }
+    
+    public function createNewReview($movieID, $reviewText, $username, $date, $time){
+        $stmt = $this->DB->prepare("insert into reviewdata (movieID, reviewText, username, date, time) values ('" . $movieID . "' , '" . $reviewText . "' , '" . $username . "' , '" . $date . "' , '" . $time . "')");
+        $stmt->execute();
+    }
     
     
     

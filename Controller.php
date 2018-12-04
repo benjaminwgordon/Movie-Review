@@ -66,8 +66,21 @@ if ($method == "myReviews"){
     else{
         echo "<p>please login to view your reviews</p>";
     }
+}
+
+if ($method == "getAllMovies"){
+    $movies = json_decode($databaseAdaptor->getMovieList());
+    for ($i = 0; $i < count($movies); $i++)
+    {
+        echo '<ul>';
+        echo '<li>'.$movies[$i]["movieTitle"].'</li>';
+        echo '</ul>';
+    }
     
 }
+
+
+
 
 ?>
 
